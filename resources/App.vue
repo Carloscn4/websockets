@@ -21,7 +21,6 @@ export default {
             .listen('.notification', (e) => {
                 console.log('escuchando');
                 console.log(e);
-                this.message = e;
             });
         },
         async callApi() {

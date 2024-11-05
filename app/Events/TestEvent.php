@@ -4,9 +4,6 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -26,23 +23,22 @@ class TestEvent implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
+     * @return <\Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
+    public function broadcastOn(): Channel
+    {
+
+        return new Channel('test');
+    }
+
+    public function broadcastWith(): array
     {
         return [
-            new Channel('test'),
+            'test' => 'hola',
         ];
     }
 
-    public function broadcastWith() : array
-    {
-        return [
-            'test' => 'hola'
-        ];
-    }
-
-    public function broadcastAs() : string
+    public function broadcastAs(): string
     {
         return '.notification';
     }
