@@ -15,9 +15,10 @@ class TestEvent implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public $message;
+    public function __construct($message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -31,15 +32,8 @@ class TestEvent implements ShouldBroadcastNow
         return new Channel('test');
     }
 
-    public function broadcastWith(): array
-    {
-        return [
-            'test' => 'hola',
-        ];
-    }
-
     public function broadcastAs(): string
     {
-        return '.notification';
+        return 'notification';
     }
 }

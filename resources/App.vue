@@ -1,33 +1,34 @@
 <template>
-    Hola mundo {{ message }}
+    <h1>Mensaje: {{ msg }}</h1>
+    <form @submit.prevent="callApi">
+        <input v-model="message" type="text">
+        <button class="border" type="submit">send</button>
+    </form>
 </template>
-<script>
 
+<script>
 import axios from 'axios';
 
 export default {
     data() {
         return {
             message: '',
+            msg: ''
         }
     },
     mounted() {
-        this.listener();
-        this.callApi();
+        window.Echo.channel('test')
+            .listen('.notification', (e) => {
+                console.log('hola');
+                console.log(e);
+                this.msg = e.message;
+            });
     },
     methods: {
-        listener() {
-            window.Echo.channel('test')
-            .listen('.notification', (e) => {
-                console.log('escuchando');
-                console.log(e);
-            });
-        },
         async callApi() {
             try {
-                const { data } = await axios.get('api/test');
-                console.log('llamando');
-                console.log(data); 
+                const data = await axios.post('api/test', { message: this.message });
+                console.log(data);
             } catch (error) {
                 console.error(error);
             }

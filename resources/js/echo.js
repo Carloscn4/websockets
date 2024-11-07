@@ -13,8 +13,8 @@ window.Echo = new Echo({
     enabledTransports: ['ws', 'wss'],
 });
 
-window.Echo.channel('test')
+/* window.Echo.channel('test')
             .listen('.notification', (e) => {
                 console.log('escuchando');
                 console.log(e);
-            });
+            }); */
